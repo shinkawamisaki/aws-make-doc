@@ -22,6 +22,24 @@ chmod +x iam_user.sh
 
 3. Notion や Markdown エディタにそのまま貼り付け
 
+** 便利 **: フォルダ内の .sh を全部実行する場合
+
+#!/bin/bash
+set -euo pipefail
+
+TMPFILE="$(mktemp)"
+for f in ./scripts/*.sh; do
+  echo "===== $f =====" >> "$TMPFILE"
+  bash "$f" >> "$TMPFILE" 2>&1
+  echo "" >> "$TMPFILE"
+done
+
+cat "$TMPFILE" | pbcopy
+cat "$TMPFILE"
+rm "$TMPFILE"
+
+./scripts/*.sh の部分はフォルダ名に応じて変更
+
 ---
 
 ## スクリプト一覧（カテゴリ別）
